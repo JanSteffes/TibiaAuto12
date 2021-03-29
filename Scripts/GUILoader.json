@@ -32,6 +32,10 @@
             "ManaHotkeyStageTwo": "F3",
             "CheckLowMana": false
         },
+        "ManaBurn": {
+            "ManaBurnPercentage": 70,
+            "ManaBurnHotkey": "F5"
+        },
         "HurLoader": {
             "CheckPrint": false,
             "CheckBuff": false,

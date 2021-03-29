@@ -97,6 +97,8 @@ class root:
        
         self.root.addButtonGrid('Food Eater', OpenFoodEater, rowIndex, columnIndex)
         rowIndex += 1
+        self.root.addButtonGrid('Mana Burn', OpenManaBurn, rowIndex, columnIndex)
+        rowIndex += 1
 
         # self.root.addButtonGrid('Auto Grouping', OpenAutoGrouping, rowIndex, columnIndex)
         # rowIndex += 1
@@ -349,6 +351,8 @@ def OpenLoadConfig():
     print("LoadConfig In Development...")
     # LoadConfig(root)
 
+def OpenManaBurn():
+    ManaBurnGrid(ManaLocation, MOUSE_OPTION)
 
 def OpenModules():
     print("Modules In Development...")
