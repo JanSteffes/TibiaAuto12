@@ -325,8 +325,8 @@ def OpenCreatureInfo():
 
 
 def OpenFoodEater():
-    print("FoodEater In Development...")
-    # FoodEater(root)
+    # print("FoodEater In Development...")
+    FoodEaterGrid(root, StatsPositions, MOUSE_OPTION)
 
 
 def OpenFPSChanger():
