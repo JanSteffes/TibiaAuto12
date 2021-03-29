@@ -294,7 +294,7 @@ def OpenAutoLooter():
 
 
 def OpenAutoMana():
-    AutoMana(ManaLocation, MOUSE_OPTION)
+    AutoManaGrid(ManaLocation, MOUSE_OPTION)
 
 
 def OpenAutoRing():
