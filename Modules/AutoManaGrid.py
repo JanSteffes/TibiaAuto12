@@ -185,23 +185,10 @@ class AutoManaGrid:
         ControlsFrame.grid(row = 0, column = 0, sticky = 'nsew')
         ConfigFrame.grid(row = 1, column = 0, sticky = 'nsew')
         
-        def EnableStageRecursive(Stage, enable = True):
-            if enable:
-                stateToSet = 'enable'
-            else:
-                stateToSet = 'disable'
-            for child in Stage.winfo_children():    
-                childChildren = child.winfo_children()
-                if childChildren and len(childChildren) > 0:
-                    EnableStageRecursive(child)
-                else:
-                    try:
-                        child.configure(state=stateToSet)
-                    except Exception:
-                        print('exception while configurting child')
+
 
         def CheckingButtons():
-            EnableStageRecursive(ConfigFrame, EnabledAutoMana)        
+            self.AutoMana.EnableStageRecursive(ConfigFrame, EnabledAutoMana)        
             ExecGUITrigger()
 
         # CheckingButtons()

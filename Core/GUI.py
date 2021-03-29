@@ -23,6 +23,22 @@ class GUI:
         for columnIndex in range(maxColumn+1):
             Grid.columnconfigure(windowToAutoResize, columnIndex, weight = 1)
 
+    
+    def EnableStageRecursive(self, Stage, enable = True):
+        if enable:
+            stateToSet = 'enable'
+        else:
+            stateToSet = 'disable'
+        for child in Stage.winfo_children():    
+            childChildren = child.winfo_children()
+            if childChildren and len(childChildren) > 0:
+                self.EnableStageRecursive(child)
+            else:
+                try:
+                    child.configure(state=stateToSet)
+                except Exception:
+                    return
+
 
     def MainWindow(self: (object, 'self'), 
         BackgroundImage: (str, 'path to image to use, can be left empty'), 
@@ -338,3 +354,44 @@ class GUI:
         ImageID = ImageID.resize((size[0], size[1]), Image.ANTIALIAS)
         ImageID = ImageTk.PhotoImage(ImageID)
         return ImageID
+
+import abc
+
+class LayoutWidget:    
+    __metaclass__ = abc.ABCMeta
+
+    def __init__(self, gui: (GUI, "GUI to create with to"), masterToAssignTo = None, background = None):
+        if not masterToAssignTo:
+            masterToAssignTo = gui.windowID
+        self.Gui = gui
+        self.Frame = gui.createFrame(masterToAssignTo, background)
+        self.Widgets = []
+
+    def appendWidget(self, widget):
+        self.Widgets.append(widget)
+
+    def prependWidget(self, widget):
+        self.Widgets.insert(0, widget)
+
+    @abc.abstractmethod
+    def layoutWidgets(self):
+        """" layout widget """
+        return
+
+class Column(LayoutWidget):  
+
+    def layoutWidgets(self):
+        count = 0
+        for widget in self.Widgets:
+            widget.grid(row = count, column = 0, sticky = 'nsew')
+            count += 1
+        self.Gui.enableResize(self.Frame)
+
+class Row(LayoutWidget): 
+
+    def layoutWidgets(self):
+        count = 0
+        for widget in self.Widgets:
+            widget.grid(row = 0, column = count, sticky = 'nsew')
+            count += 1
+        self.Gui.enableResize(self.Frame)

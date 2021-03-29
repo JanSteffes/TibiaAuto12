@@ -2,7 +2,9 @@ import time
 
 from Conf.Hotkeys import Hotkey
 
-from Core.GUI import *
+from tkinter import Grid
+
+from Core.GUI import GUI, Column, Row
 from Core.GUIManager import *
 from Core.ThreadManager import ThreadManager
 from Core.GUISetter import GUISetter
@@ -12,7 +14,7 @@ from Engine.ScanStarving import ScanStarving
 EnabledFoodEater = False
 ThreadStarted = False
 
-class FoodEater:
+class FoodEaterGrid:
     def __init__(self, root, StatsPositions, MOUSE_OPTION):
         self.FoodEater = GUI('FoodEater', 'Module: Food Eater')
         self.FoodEater.DefaultWindow('DefaultWindow', None, None)
@@ -50,25 +52,40 @@ class FoodEater:
                 time.sleep(5)
 
         
-        VarHotkeyFood, _ = self.Setter.Variables.Str('HotkeyFood')
-
-        self.FoodEater.addButtonGrid('Ok', self.FoodEater.destroyWindow, 0,0)
-        LabelHotkey = self.FoodEater.addLabelGrid('Hotkey Food: ', 2, 0)
-        HotkeyFood = self.FoodEater.addOptionGrid(VarHotkeyFood, self.SendToClient.Hotkeys, 3, 0, 8)
+        VarHotkeyFood, _ = self.Setter.Variables.Str('HotkeyFood')            
+  
         
+        MainColumn = Column(self.FoodEater, background="Green")
+        MainColumn.Frame.grid(row = 0, column = 0, sticky = 'nsew')
+
+        # close button
+        OkButton = self.FoodEater.createButton('Ok', self.FoodEater.destroyWindow, MainColumn.Frame)  
+        
+        # enable button 
         global EnabledFoodEater
         if not EnabledFoodEater:
-            ButtonEnabled = self.FoodEater.addButtonGrid('FoodEater: OFF', SetFoodEater, 1, 0)
+            ButtonEnabled = self.FoodEater.createButton('FoodEater: OFF', SetFoodEater, MainColumn.Frame)
         else:
-            ButtonEnabled = self.FoodEater.addButtonGrid('FoodEater: ON', SetFoodEater, 1, 0)
+            ButtonEnabled = self.FoodEater.createButton('FoodEater: ON', SetFoodEater, MainColumn.Frame)
+ 
+
+        #build HotkeyRow    
+        HotkeyRow = Row(self.FoodEater, MainColumn.Frame)
+        LabelHotkey = self.FoodEater.createLabel('Hotkey Food: ', HotkeyRow.Frame)
+        HotkeyFood = self.FoodEater.createOption(VarHotkeyFood, self.SendToClient.Hotkeys, masterToAssignTo=HotkeyRow.Frame)
+        HotkeyRow.appendWidget(LabelHotkey)
+        HotkeyRow.appendWidget(HotkeyFood)
+        HotkeyRow.layoutWidgets()
+
+        MainColumn.appendWidget(OkButton)
+        MainColumn.appendWidget(ButtonEnabled)
+        MainColumn.appendWidget(HotkeyRow.Frame)
+        MainColumn.layoutWidgets()
+
+        self.FoodEater.enableResize(self.FoodEater.windowID)
 
         def CheckingButtons():
-            if EnabledFoodEater:
-                Disable(LabelHotkey)
-                Disable(HotkeyFood)
-            else:
-                Enable(LabelHotkey)
-                Enable(HotkeyFood)
+            self.FoodEater.EnableStageRecursive(HotkeyRow.Frame, EnabledFoodEater)
             ExecGUITrigger()
 
         CheckingButtons()

@@ -19,7 +19,8 @@ from Modules.AutoSSA import AutoSSA
 from Modules.CaveBot import CaveBot
 # from Modules.ColorChange import ColorChange
 # from Modules.CreatureInfo import CreatureInfo
-from Modules.FoodEater import FoodEater
+from Modules.FoodEaterGrid import FoodEaterGrid
+from Modules.ManaBurnGrid import ManaBurnGrid
 # from Modules.FPSChanger import FPSChanger
 # from Modules.GeneralOptions import GeneralOptions
 # from Modules.HealerFriend import HealerFriend
@@ -63,7 +64,6 @@ class root:
         self.root = GUI('root', 'TibiaAuto V12')
         # self.root.MainWindow('Main', [2, 2.36])
         self.root.MainWindow(None, [2, 2.36])
-        self.root.enableResize(self.root.windowID)
         # self.root.addMinimalLabel(f'Logged as: {CharName}', [14, 14])
         self.root.addLabelGrid(f'Logged as: {CharName}', 0, 0)
 
@@ -114,7 +114,7 @@ class root:
 
         # self.root.addButton('Auto Life', OpenAutoHeal, [92, 23], [147, 56])
         # self.root.addButton('Auto Hur', OpenAutoHur, [92, 23], [245, 56])
-        self.root.addButtonGrid('Auto Mana', OpenAutoMana, rowIndex, columnIndex)
+        #self.root.addButtonGrid('Auto Mana', OpenAutoMana, rowIndex, columnIndex)
         # self.root.addButton('Auto Fish', OpenAutoFish, [92, 23], [245, 83])
         # self.root.addButton('Auto Amulet', OpenAutoSSA, [92, 23], [147, 108])
         # self.root.addButton('Auto Ring', OpenAutoRing, [92, 23], [245, 108])
@@ -139,7 +139,7 @@ class root:
             print("Exiting...")
             self.root.destroyWindow()
 
-        self.root.addButton('Exit', Exit, [92, 23], [10, 498])
+        self.root.addButtonGrid('Exit', Exit, rowIndex, columnIndex)
 
         # endregion
 
@@ -234,6 +234,7 @@ class root:
                 SETTED_VARIABLES = True
 
         SetVariablesFromLoadedJson()
+        self.root.enableResize(self.root.windowID)
 
         self.root.loop()
 
