@@ -28,7 +28,7 @@ def WindowSelectCharacter():
     x = (sw - w) / 2.3
     y = (sh - h) / 2.4
     SelectCharacter.geometry('%dx%d+%d+%d' % (w, h, x, y))
-    SelectCharacter.resizable(width=False, height=False)
+    SelectCharacter.resizable(width=True, height=True)
     SelectCharacter.title('Choose Your Character')
     SelectCharacter.configure(background=rgb((120, 98, 51)), takefocus=True)
     SelectCharacter.iconbitmap('images/icone2.ico')

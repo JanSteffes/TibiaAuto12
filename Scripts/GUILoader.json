@@ -22,14 +22,14 @@
             "HotkeyStageTwo": "Ctrl + F1"
         },
         "ManaLoader": {
-            "CheckPrint": false,
+            "CheckPrint": true,
             "CheckBuff": false,
             "ManaCheckStageOne": true,
             "ManaCheckStageTwo": false,
-            "ManaPercentageStageOne": 70,
+            "ManaPercentageStageOne": 65,
             "ManaHotkeyStageOne": "F3",
-            "ManaPercentageStageTwo": 45,
-            "ManaHotkeyStageTwo": "Shift + F12",
+            "ManaPercentageStageTwo": 70,
+            "ManaHotkeyStageTwo": "F3",
             "CheckLowMana": false
         },
         "HurLoader": {
@@ -38,6 +38,9 @@
             "HotkeyHur": "F6",
             "CheckLowMana": false,
             "CheckStageOne": true
+        },
+        "FoodEater": {
+            "HotkeyFood": "F2"
         },
         "AmuletLoader": {
             "CheckPrint": false,

@@ -12,14 +12,14 @@ from Modules.AutoHeal import AutoHeal
 from Modules.AutoHur import AutoHur
 # from Modules.AutoLogin import AutoLogin
 # from Modules.AutoLooter import AutoLooter
-from Modules.AutoMana import AutoMana
+from Modules.AutoManaGrid import AutoManaGrid
 from Modules.AutoRing import AutoRing
 # from Modules.AutoSeller import AutoSeller
 from Modules.AutoSSA import AutoSSA
 from Modules.CaveBot import CaveBot
 # from Modules.ColorChange import ColorChange
 # from Modules.CreatureInfo import CreatureInfo
-# from Modules.FoodEater import FoodEater
+from Modules.FoodEater import FoodEater
 # from Modules.FPSChanger import FPSChanger
 # from Modules.GeneralOptions import GeneralOptions
 # from Modules.HealerFriend import HealerFriend
@@ -58,48 +58,82 @@ CavebotScriptsPath = None
 
 
 class root:
+
     def __init__(self, CharName, LoadedJson):
         self.root = GUI('root', 'TibiaAuto V12')
-        self.root.MainWindow('Main', [357, 530], [2, 2.36])
-
-        self.root.addMinimalLabel(f'Logged as: {CharName}', [14, 14])
+        # self.root.MainWindow('Main', [2, 2.36])
+        self.root.MainWindow(None, [2, 2.36])
+        self.root.enableResize(self.root.windowID)
+        # self.root.addMinimalLabel(f'Logged as: {CharName}', [14, 14])
+        self.root.addLabelGrid(f'Logged as: {CharName}', 0, 0)
 
         # regions Buttons
 
-        self.root.addButton('Healer Friend', OpenHealerFriend, [92, 23], [23, 56])
-        self.root.addButton('Color Change', OpenColorChange, [92, 23], [23, 108])
-        self.root.addButton('Ammo Restack', OpenAmmoRestack, [92, 23], [23, 135])
-        self.root.addButton('Auto Looter', OpenAutoLooter, [92, 23], [23, 160])
+        # self.root.addButton('Healer Friend', OpenHealerFriend, [92, 23], [23, 56])
+        # self.root.addButton('Color Change', OpenColorChange, [92, 23], [23, 108])
+        # self.root.addButton('Ammo Restack', OpenAmmoRestack, [92, 23], [23, 135])
+        # self.root.addButton('Auto Looter', OpenAutoLooter, [92, 23], [23, 160])
+        
 
-        self.root.addButton('Food Eater', OpenFoodEater, [92, 23], [23, 210])
-        self.root.addButton('Auto Grouping', OpenAutoGrouping, [92, 23], [23, 236])
-        self.root.addButton('Sort Loot', OpenSortLoot, [92, 23], [23, 262])
-        self.root.addButton('Auto Banker', OpenAutoBanker, [92, 23], [23, 288])
-        self.root.addButton('Auto Seller', OpenAutoSeller, [92, 23], [23, 340])
-        self.root.addButton('FPS Changer', OpenFPSChanger, [92, 23], [23, 366])
+        #self.root.addButton('Food Eater', OpenFoodEater, [92, 23], [23, 210])
+        # self.root.addButton('Auto Grouping', OpenAutoGrouping, [92, 23], [23, 236])
+        # self.root.addButton('Sort Loot', OpenSortLoot, [92, 23], [23, 262])
+        # self.root.addButton('Auto Banker', OpenAutoBanker, [92, 23], [23, 288])
+        # self.root.addButton('Auto Seller', OpenAutoSeller, [92, 23], [23, 340])
+        # self.root.addButton('FPS Changer', OpenFPSChanger, [92, 23], [23, 366])
 
-        self.root.addButton('Auto Life', OpenAutoHeal, [92, 23], [147, 56])
-        self.root.addButton('Auto Hur', OpenAutoHur, [92, 23], [245, 56])
-        self.root.addButton('Auto Mana', OpenAutoMana, [92, 23], [147, 83])
-        self.root.addButton('Auto Fish', OpenAutoFish, [92, 23], [245, 83])
-        self.root.addButton('Auto Amulet', OpenAutoSSA, [92, 23], [147, 108])
-        self.root.addButton('Auto Ring', OpenAutoRing, [92, 23], [245, 108])
-        self.root.addButton('Timed Spells', OpenTimedSpells, [92, 23], [147, 135])
-        self.root.addButton('Auto Login', OpenAutoLogin, [92, 23], [245, 135])
+        # add first column
 
-        self.root.addButton('Creature Info', OpenCreatureInfo, [92, 23], [147, 188])
-        self.root.addButton('Monsters', OpenMonsters, [92, 23], [245, 188])
+        columnIndex = 0
+        rowIndex = 0
+        # self.root.addButtonGrid('Healer Friend', OpenHealerFriend, rowIndex, columnIndex)
+        # rowIndex += 1
+        # self.root.addButtonGrid('Color Change', OpenColorChange, rowIndex, columnIndex)
+        # rowIndex += 1
+        # self.root.addButtonGrid('Ammo Restack', OpenAmmoRestack, rowIndex, columnIndex)
+        # rowIndex += 1
+        # self.root.addButtonGrid('Auto Looter', OpenAutoLooter, rowIndex, columnIndex)
+        # rowIndex += 1
+       
+        self.root.addButtonGrid('Food Eater', OpenFoodEater, rowIndex, columnIndex)
+        rowIndex += 1
 
-        self.root.addButton('Show Map', OpenShowMap, [92, 23], [147, 290])
-        self.root.addButton('Cave Bot', OpenCaveBot, [92, 23], [245, 290])
+        # self.root.addButtonGrid('Auto Grouping', OpenAutoGrouping, rowIndex, columnIndex)
+        # rowIndex += 1
+        # self.root.addButtonGrid('Sort Loot', OpenSortLoot, rowIndex, columnIndex)
+        # # rowIndex += 1
+        # self.root.addButtonGrid('Auto Banker', OpenAutoBanker, rowIndex, columnIndex)
+        # rowIndex += 1
+        # self.root.addButtonGrid('Auto Seller', OpenAutoSeller, rowIndex, columnIndex)
+        # rowIndex += 1
+        # self.root.addButtonGrid('FPS Changer', OpenFPSChanger, rowIndex, columnIndex)
+        # columnIndex += 2
 
-        self.root.addButton('Load Config', OpenLoadConfig, [92, 23], [147, 340])
-        self.root.addButton('Save Config', OpenSaveConfig, [92, 23], [245, 340])
-        self.root.addButton('Adjust Config', OpenAdjustConfig, [92, 23], [147, 366])
-        self.root.addButton('Modules', OpenModules, [92, 23], [245, 366])
-        self.root.addButton('Python Scripts', OpenPythonScripts, [92, 23], [245, 392])
 
-        self.root.addButton('General Options', OpenGeneralOptions, [213, 23], [134, 426])
+        # add third column
+
+        # self.root.addButton('Auto Life', OpenAutoHeal, [92, 23], [147, 56])
+        # self.root.addButton('Auto Hur', OpenAutoHur, [92, 23], [245, 56])
+        self.root.addButtonGrid('Auto Mana', OpenAutoMana, rowIndex, columnIndex)
+        # self.root.addButton('Auto Fish', OpenAutoFish, [92, 23], [245, 83])
+        # self.root.addButton('Auto Amulet', OpenAutoSSA, [92, 23], [147, 108])
+        # self.root.addButton('Auto Ring', OpenAutoRing, [92, 23], [245, 108])
+        # self.root.addButton('Timed Spells', OpenTimedSpells, [92, 23], [147, 135])
+        # self.root.addButton('Auto Login', OpenAutoLogin, [92, 23], [245, 135])
+
+        # self.root.addButton('Creature Info', OpenCreatureInfo, [92, 23], [147, 188])
+        # self.root.addButton('Monsters', OpenMonsters, [92, 23], [245, 188])
+
+        # self.root.addButton('Show Map', OpenShowMap, [92, 23], [147, 290])
+        # self.root.addButton('Cave Bot', OpenCaveBot, [92, 23], [245, 290])
+
+        # self.root.addButton('Load Config', OpenLoadConfig, [92, 23], [147, 340])
+        # self.root.addButton('Save Config', OpenSaveConfig, [92, 23], [245, 340])
+        # self.root.addButton('Adjust Config', OpenAdjustConfig, [92, 23], [147, 366])
+        # self.root.addButton('Modules', OpenModules, [92, 23], [245, 366])
+        # self.root.addButton('Python Scripts', OpenPythonScripts, [92, 23], [245, 392])
+
+        # self.root.addButton('General Options', OpenGeneralOptions, [213, 23], [134, 426])
 
         def Exit():
             print("Exiting...")

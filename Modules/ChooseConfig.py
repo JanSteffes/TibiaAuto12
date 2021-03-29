@@ -28,7 +28,7 @@ NumberOfExcepts = []
 class ChooseConfig:
     def __init__(self, CharName):
         self.ChooseConfig = GUI('ChooseConfig', 'Choose You Config')
-        self.ChooseConfig.MainWindow('Config', [414, 202], [2, 2.36])
+        self.ChooseConfig.MainWindow(BackgroundImage = None, positions = [2, 2.36])
 
         '''
             This Is The Main Function If The ChooseConfig...
@@ -406,7 +406,7 @@ class ChooseConfig:
 
                     def ManualConfig(ErrorName):
                         ManualConfiguration = GUI('ManualConfiguration', 'Manual Configuration')
-                        ManualConfiguration.MainWindow('Config', [414, 202], [2, 2.36])
+                        ManualConfiguration.MainWindow('Config', [2, 2.36])
 
                         def Solving():
                             ManualConfiguration.destroyWindow()
@@ -482,52 +482,63 @@ class ChooseConfig:
 
         # region Buttons
 
-        if os.path.isfile('Scripts/' + NameCreateJson.get() + '.json'):
-            with open('Scripts/' + NameCreateJson.get() + '.json', 'r') as LoadsJson:
-                data = json.load(LoadsJson)
-            if data['Stats']:
-                self.ChooseConfig.addButton('Load', CreateDefaultJson, [75, 23], [310, 166])
-            else:
-                self.ChooseConfig.addButton('Create', CreateDefaultJson, [75, 23], [310, 166])
-        else:
-            self.ChooseConfig.addButton('Create', CreateDefaultJson, [75, 23], [310, 166])
+        #self.ChooseConfig.addButton('Create', CreateDefaultJson, [75, 23], [310, 166])
+        self.ChooseConfig.addButtonGrid('Create', CreateDefaultJson, 0, 0)
 
-        self.ChooseConfig.addEntry([165, 35], NameCreateJson, 28)
+        # self.ChooseConfig.addEntry([165, 35], NameCreateJson, 28)
+        self.ChooseConfig.addEntryGrid(1, 0, NameCreateJson, 28)
 
-        self.ChooseConfig.addLabel('Name Of The Json Conf', [24, 35])
+        # self.ChooseConfig.addLabel('Name Of The Json Conf', [24, 35])
+        self.ChooseConfig.addLabelGrid('Name Of The Json Conf', 1, 1)
 
-        LabelSelectOP1 = self.ChooseConfig.addLabel('Select Your Mouse And Keyboard Option', [30, 76])
+        # LabelSelectOP1 = self.ChooseConfig.addLabel('Select Your Mouse And Keyboard Option', [30, 76])
+        LabelSelectOP1 = self.ChooseConfig.addLabelGrid('Select Your Mouse And Keyboard Option', 2, 0)
         LabelSelectOP1.configure(bg=rgb((114, 94, 48)), fg='black')
 
-        RadioMouseMoviment = self.ChooseConfig.addRadio('{Global} Movement Mouse On Focused Window', MouseMode, 1,
-                                                        [10, 95])
+
+
+        # RadioMouseMoviment = self.ChooseConfig.addRadio('{Global} Movement Mouse On Focused Window', MouseMode, 1,
+        #                                                 [10, 95])
+        RadioMouseMoviment = self.ChooseConfig.addRadioGrid('{Global} Movement Mouse On Focused Window', MouseMode, 1, 2, 0)
         RadioMouseMoviment.configure(bg=rgb((114, 94, 48)), activebackground=rgb((114, 94, 48)),
                                      selectcolor=rgb((114, 94, 48)))
-        RadioSenderMouse = self.ChooseConfig.addRadio("{OTServer} Send Mouse Events To Tibia's Window", MouseMode, 0,
-                                                      [10, 114])
+        # RadioSenderMouse = self.ChooseConfig.addRadio("{OTServer} Send Mouse Events To Tibia's Window", MouseMode, 0,
+        #                                               [10, 114])
+        RadioSenderMouse = self.ChooseConfig.addRadioGrid("{OTServer} Send Mouse Events To Tibia's Window", MouseMode, 0, 2, 1)
         RadioSenderMouse.configure(bg=rgb((114, 94, 48)), activebackground=rgb((114, 94, 48)),
                                    selectcolor=rgb((114, 94, 48)))
 
-        LabelSelectOP2 = self.ChooseConfig.addLabel('Select Your Hook Mode', [30, 136])
+
+
+
+        # LabelSelectOP2 = self.ChooseConfig.addLabel('Select Your Hook Mode', [30, 136])
+        LabelSelectOP2 = self.ChooseConfig.addLabelGrid('Select Your Hook Mode', 3, 0)
         LabelSelectOP2.configure(bg=rgb((114, 94, 48)), fg='black')
 
-        RadioHookWindow = self.ChooseConfig.addRadio("{Global} Hook Directly OBS Screen", HookMode, 1, [10, 155])
+        # RadioHookWindow = self.ChooseConfig.addRadio("{Global} Hook Directly OBS Screen", HookMode, 1, [10, 155])
+        RadioHookWindow = self.ChooseConfig.addRadioGrid("{Global} Hook Directly OBS Screen", HookMode, 1, 3, 1)
         RadioHookWindow.configure(bg=rgb((114, 94, 48)), activebackground=rgb((114, 94, 48)),
                                   selectcolor=rgb((114, 94, 48)))
 
-        LabelSelectOP3 = self.ChooseConfig.addLabel('Select The Items Mode', [280, 76])
+        # LabelSelectOP3 = self.ChooseConfig.addLabel('Select The Items Mode', [280, 76])
+        LabelSelectOP3 = self.ChooseConfig.addLabelGrid('Select The Items Mode', 4, 0)
         LabelSelectOP3.configure(bg=rgb((114, 94, 48)), fg='black')
 
-        RadioFrames = self.ChooseConfig.addRadio('Frames', ItemsMode, "Frames",
-                                                 [310, 95])
+        # RadioFrames = self.ChooseConfig.addRadio('Frames', ItemsMode, "Frames",
+        #                                          [310, 95])
+        RadioFrames = self.ChooseConfig.addRadioGrid('Frames', ItemsMode, "Frames",4, 1)
         RadioFrames.configure(bg=rgb((114, 94, 48)), activebackground=rgb((114, 94, 48)),
                               selectcolor=rgb((114, 94, 48)))
-        RadioCorners = self.ChooseConfig.addRadio("Corners", ItemsMode, "Corners",
-                                                  [310, 114])
+
+        # RadioCorners = self.ChooseConfig.addRadio("Corners", ItemsMode, "Corners",
+        #                                           [310, 114])
+        RadioCorners = self.ChooseConfig.addRadioGrid("Corners", ItemsMode, "Corners", 4, 2)
         RadioCorners.configure(bg=rgb((114, 94, 48)), activebackground=rgb((114, 94, 48)),
                                selectcolor=rgb((114, 94, 48)))
-        RadioNone = self.ChooseConfig.addRadio("None", ItemsMode, "None",
-                                               [310, 133])
+
+        # RadioNone = self.ChooseConfig.addRadio("None", ItemsMode, "None",
+        #                                        [310, 133])
+        RadioNone = self.ChooseConfig.addRadioGrid("None", ItemsMode, "None", 4,3)
         RadioNone.configure(bg=rgb((114, 94, 48)), activebackground=rgb((114, 94, 48)),
                             selectcolor=rgb((114, 94, 48)))
 
